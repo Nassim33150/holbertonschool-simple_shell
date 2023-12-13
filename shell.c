@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int _printlineTyped()
 {
@@ -17,5 +18,17 @@ int _printlineTyped()
 
     free(lineptr);
 
+    return (0);
+}
+int startShell()
+{
+    if (isatty(fileno(stdin)))
+    {
+        _printlineTyped();
+    }
+    else
+    {
+        printf("non-interactive mode\n");
+    }
     return (0);
 }

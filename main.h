@@ -2,5 +2,5 @@
 #define MAIN_H
 
 int _printlineTyped();
-
+int startShell();
 #endif
