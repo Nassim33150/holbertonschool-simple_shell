@@ -9,7 +9,6 @@
 
 int _printlineTyped();
 int startShell();
-void dup_lineptr(char *lineptr);
 void process_command(char *lineptr);
 
 

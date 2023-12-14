@@ -1,21 +1,6 @@
 #include <main.h>
 
 /**
- * dup_lineptr - allocates memory for copying lineptr.
- * @lineptr: command passed by user.
-*/
-
-void dup_lineptr(char *lineptr)
-{
-	char *lineptr_copy = strdup(lineptr);
-
-	if (lineptr_copy == NULL)
-	{
-		perror("memory allocation error");
-		return;
-	}
-}
-/**
  * process_command - divides the arguments and stocks into an array.
  * @lineptr: command passed by user.
 */
@@ -25,7 +10,10 @@ void process_command(char *lineptr)
 	const char *delim = " \n";
 	char *token, *token_copy, **argv;
 	int num_tokens = 0, i;
+	char *lineptr_copy = strdup(lineptr);
 
+	if (lineptr_copy == NULL)
+		exit(98);
 /* Compter le nombre de tokens dans la commande */
 	token = strtok(lineptr_copy, delim);
 	while (token != NULL)
