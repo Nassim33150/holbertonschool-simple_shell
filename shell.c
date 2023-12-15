@@ -22,10 +22,8 @@ int _printlineTyped()
     {
         printf("%s", prompt);
         nchars_read = getline(&lineptr, &n, stdin);
-        printf("%s\n", lineptr);
         if (nchars_read == -1)
         {
-            printf("Exiting shell....\n");
             return (-1);
         }
         if (nchars_read > 0 && lineptr[nchars_read - 1] == '\n')
@@ -64,16 +62,27 @@ int startShell()
 
 void exec_command(char *command)
 {
+    pid_t pid;
     if (command == NULL)
     {
         return;
     }
 
     char *argv[] = {command, NULL};
-
-    if (execve(command, argv, NULL) == -1)
+    pid = fork();
+    if (pid < 0)
     {
-        perror("Error:");
-        printf("No such file or directory");
+        perror("Forks fail");
+    }
+    else if (pid == 0)
+    {
+        if (execve(command, argv, NULL) == -1)
+        {
+            perror("./hsh");
+        }
+    }
+    else
+    {
+        waitpid(pid, NULL, 0);
     }
 }
