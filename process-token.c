@@ -1,11 +1,11 @@
-#include <main.h>
+#include "main.h"
 
 /**
  * process_command - divides the arguments and stocks into an array.
  * @lineptr: command passed by user.
 */
 
-void process_command(char *lineptr)
+char **process_command(char *lineptr)
 {
 	const char *delim = " \n";
 	char *token, *token_copy, **argv;
@@ -30,19 +30,19 @@ void process_command(char *lineptr)
 		return;
 	}
 /* Stocker chaque token dans le tableau */
-	token = strtok(lineptr_copy, delim);
-		for (i = 0; token != NULL; i++)
-		{
-			argv[i] = malloc(sizeof(char) * (strlen(token) + 1));
-			strcpy(argv[i], token);
-			token = strtok(NULL, delim);
-		}
+	token = strtok(lineptr, delim);
+	for (i = 0; token != NULL; i++)
+	{
+		argv[i] = malloc(sizeof(char) * (strlen(token)));
+		strcpy(argv[i], token);
+		token = strtok(NULL, delim);
+	}
 	argv[i] = NULL;
- /* Libérer la mémoire allouée */
-	free(lineptr_copy);
 	for (i = 0; argv[i] != NULL; i++)
 	{
-		free(argv[i]);
+		printf("token[%d] = %s\n", i,  argv[i]);
 	}
-	free(argv);
+ /* Libérer la mémoire allouée */
+	free(lineptr_copy);
+	return (argv);
 }

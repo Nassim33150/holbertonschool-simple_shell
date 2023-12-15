@@ -9,7 +9,7 @@
 
 int _printlineTyped();
 int startShell();
-void process_command(char *lineptr);
+char **process_command(char *lineptr);
 
 
 #endif
