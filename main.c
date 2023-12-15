@@ -9,6 +9,8 @@ int main(int ac, char **argv)
 
     _printlineTyped();
 
+    exec_command("/bin/ls");
+
     /**
      * printf("%s", my_prompt);
 

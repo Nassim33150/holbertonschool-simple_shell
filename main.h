@@ -8,5 +8,5 @@
 
 int _printlineTyped();
 int startShell();
-void exec_command();
+void exec_command(char *command);
 #endif

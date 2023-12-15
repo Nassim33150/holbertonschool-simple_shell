@@ -62,14 +62,14 @@ int startShell()
     return (0);
 }
 
-void exec_command(char **argv)
+void exec_command(char *command)
 {
-    char *command = NULL;
-
-    if (argv)
+    if (command == NULL)
     {
-        command = argv[0];
+        return;
     }
+
+    char *argv[] = {command, NULL};
 
     if (execve(command, argv, NULL) == -1)
     {
