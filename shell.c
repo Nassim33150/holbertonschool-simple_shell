@@ -1,7 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 /**
  * _printlineTyped - Basic function for interactive input in a shell.
@@ -31,6 +28,12 @@ int _printlineTyped()
             printf("Exiting shell....\n");
             return (-1);
         }
+        if (nchars_read > 0 && lineptr[nchars_read - 1] == '\n')
+        {
+            lineptr[nchars_read - 1] = '\0';
+        }
+
+        exec_command(lineptr);
     }
     free(lineptr);
     return (0);
@@ -57,4 +60,20 @@ int startShell()
         printf("non-interactive mode\n");
     }
     return (0);
+}
+
+void exec_command(char **argv)
+{
+    char *command = NULL;
+
+    if (argv)
+    {
+        command = argv[0];
+    }
+
+    if (execve(command, argv, NULL) == -1)
+    {
+        perror("Error:");
+        printf("No such file or directory");
+    }
 }
