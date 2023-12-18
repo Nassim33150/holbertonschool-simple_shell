@@ -7,8 +7,12 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
+void exit_shell(char *command);
 int _printlineTyped();
 int startShell();
-void exec_command(char *command);
+char **process_command(char *lineptr);
+void exec_command(char **tokens);
+char *get_location(char *command);
 #endif
