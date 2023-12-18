@@ -3,12 +3,14 @@
 /**
  * process_command - divides the arguments and stocks into an array.
  * @lineptr: command passed by user.
+ *
+ * Return: an array with token.
 */
 
 char **process_command(char *lineptr)
 {
 	const char *delim = " \n";
-	char *token, *token_copy, **argv;
+	char *token, **argv;
 	int num_tokens = 0, i;
 	char *lineptr_copy = strdup(lineptr);
 
@@ -27,7 +29,7 @@ char **process_command(char *lineptr)
 	{
 		perror("memory allocation error");
 		free(lineptr_copy);
-		return;
+		exit(98);
 	}
 /* Stocker chaque token dans le tableau */
 	token = strtok(lineptr, delim);
@@ -38,10 +40,6 @@ char **process_command(char *lineptr)
 		token = strtok(NULL, delim);
 	}
 	argv[i] = NULL;
-	for (i = 0; argv[i] != NULL; i++)
-	{
-		printf("token[%d] = %s\n", i,  argv[i]);
-	}
  /* Libérer la mémoire allouée */
 	free(lineptr_copy);
 	return (argv);
