@@ -13,6 +13,7 @@ int _printlineTyped(void);
 int startShell(void);
 char **process_command(char *lineptr);
 void exec_command(char **tokens);
+void exit_shell(char *command);
 
 
 #endif

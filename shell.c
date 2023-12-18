@@ -1,5 +1,21 @@
 #include "main.h"
 
+
+/**
+ * exit_shell - command for exiting the shell.
+ * @command: arguments passed by utilisateur.
+*/
+
+void exit_shell(char *command)
+{
+    if (strcmp(command, "exit") == 0)
+	{
+        printf("Exiting shell...\n");
+        exit(0);
+    }
+}
+
+
 /**
  * _printlineTyped - Basic function for interactive input in a shell.
  *
@@ -34,6 +50,7 @@ int _printlineTyped(void)
 			lineptr[nchars_read - 1] = '\0';
 		}
 		tokens = process_command(lineptr);
+		exit_shell(tokens[0]);
 		exec_command(tokens);
 	}
 	free(lineptr);
