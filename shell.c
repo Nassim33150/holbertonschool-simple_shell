@@ -63,6 +63,7 @@ int startShell()
 void exec_command(char *command)
 {
     pid_t pid;
+
     if (command == NULL)
     {
         return;
@@ -79,6 +80,7 @@ void exec_command(char *command)
         if (execve(command, argv, NULL) == -1)
         {
             perror("./hsh");
+            exit(EXIT_FAILURE);
         }
     }
     else
