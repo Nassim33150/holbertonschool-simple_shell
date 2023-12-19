@@ -80,10 +80,15 @@ int startShell()
 void exec_command(char **tokens)
 {
     pid_t pid;
+    char *generate_command = NULL, *command = NULL;
 
     if (tokens == NULL)
     {
         return;
+    }
+    else
+    {
+        command = tokens[0];
     }
 
     pid = fork();
@@ -93,8 +98,8 @@ void exec_command(char **tokens)
     }
     else if (pid == 0)
     {
-
-        if (execve(tokens[0], tokens, NULL) == -1)
+        generate_command = get_location(command);
+        if (execve(generate_command, tokens, NULL) == -1)
         {
             perror("./hsh");
             exit(EXIT_FAILURE);
