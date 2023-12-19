@@ -48,6 +48,7 @@ int _printlineTyped()
             lineptr[nchars_read - 1] = '\0';
         }
         tokens = process_command(lineptr);
+        exit_shell(tokens[0]);
         exec_command(tokens);
     }
     free(lineptr);
