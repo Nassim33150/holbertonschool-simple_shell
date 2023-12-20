@@ -7,6 +7,9 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+
+extern char **environ;
 
 
 int _printlineTyped(void);
@@ -14,6 +17,7 @@ int startShell(void);
 char **process_command(char *lineptr);
 void exec_command(char **tokens);
 void exit_shell(char *command);
-
+void printenv(char **environ);
+char *get_location(char *command);
 
 #endif

@@ -8,11 +8,25 @@
 
 void exit_shell(char *command)
 {
-    if (strcmp(command, "exit") == 0)
+	if (strcmp(command, "exit") == 0)
 	{
-        printf("Exiting shell...\n");
-        exit(0);
-    }
+		exit(0);
+	}
+}
+
+
+/**
+ * printenv - prints the current environment
+ * @environ: environment variable
+ */
+
+void printenv(char **environ)
+{
+int i = 0;
+
+	for (; environ[i] ; i++)
+
+		printf("%s\n", environ[i]);
 }
 
 
@@ -90,10 +104,19 @@ int startShell(void)
 void exec_command(char **tokens)
 {
 	pid_t pid;
+	char *generate_command = NULL, *command = NULL;
 
 	if (tokens == NULL)
 	{
 		return;
+	}
+	else
+	{
+		command = tokens[0];
+	}
+	if ((strcmp(tokens[0], "env") == 0) && tokens[1] == NULL)
+	{
+		printenv(environ);
 	}
 
 	pid = fork();
@@ -103,7 +126,8 @@ void exec_command(char **tokens)
 	}
 	else if (pid == 0)
 	{
-		if (execve(tokens[0], tokens, NULL) == -1)
+		generate_command = get_location(command);
+		if (execve(generate_command, tokens, NULL) == -1)
 		{
 			perror("./hsh");
 			exit(EXIT_FAILURE);
