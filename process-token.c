@@ -42,6 +42,5 @@ char **process_command(char *lineptr)
 	argv[i] = NULL;
  /* Libérer la mémoire allouée */
 	free(lineptr_copy);
-	free(lineptr);
 	return (argv);
 }
