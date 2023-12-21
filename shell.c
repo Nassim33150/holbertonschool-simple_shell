@@ -6,12 +6,11 @@
  * @command: arguments passed by utilisateur.
 */
 
-void exit_shell(char *command)
+int exit_shell(char *command)
 {
 	if (strcmp(command, "exit") == 0)
-	{
-		exit(0);
-	}
+		return (1);
+	return (0);
 }
 
 
@@ -49,6 +48,7 @@ int _printlineTyped(void)
 	char **tokens = NULL;
 	size_t n = 0;
 	ssize_t nchars_read;
+	int status, i = 0;
 
 	while (1)
 	{
@@ -58,17 +58,28 @@ int _printlineTyped(void)
 		if (nchars_read == -1)
 		{
 			free(lineptr);
-			return (-1);
+			exit(EXIT_FAILURE);
 		}
 		if (nchars_read > 0 && lineptr[nchars_read - 1] == '\n')
 		{
 			lineptr[nchars_read - 1] = '\0';
 		}
 		tokens = process_command(lineptr);
-		exit_shell(tokens[0]);
+		status = exit_shell(tokens[0]);
+		if (status > 0)
+		{
+			free(lineptr);
+			for (i = 0; tokens[i]; i++)
+				free(tokens[i]);
+			free(tokens);
+			tokens = NULL;
+			exit(EXIT_SUCCESS);
+		}
 		exec_command(tokens);
+		free(lineptr);
+		free(tokens);
 	}
-	free(lineptr);
+	
 	return (0);
 }
 
