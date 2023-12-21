@@ -65,10 +65,10 @@ int _printlineTyped(void)
 			lineptr[nchars_read - 1] = '\0';
 		}
 		tokens = process_command(lineptr);
+		free(lineptr);
 		status = exit_shell(tokens[0]);
 		if (status > 0)
 		{
-			free(lineptr);
 			for (i = 0; tokens[i]; i++)
 				free(tokens[i]);
 			free(tokens);
@@ -76,7 +76,6 @@ int _printlineTyped(void)
 			exit(EXIT_SUCCESS);
 		}
 		exec_command(tokens);
-		free(lineptr);
 		free(tokens);
 	}
 	
