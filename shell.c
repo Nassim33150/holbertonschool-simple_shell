@@ -52,7 +52,8 @@ int _printlineTyped(void)
 
 	while (1)
 	{
-		printf("%s", prompt);
+		if (isatty(fileno(stdin)))
+			printf("%s", prompt);
 		nchars_read = getline(&lineptr, &n, stdin);
 		if (nchars_read == -1)
 		{
@@ -68,31 +69,6 @@ int _printlineTyped(void)
 		exec_command(tokens);
 	}
 	free(lineptr);
-	return (0);
-}
-
-/**
- * startShell - Init a shell in either interactive or non-interactive mode.
- *
- * Description:
- * Checks if standard input is associated with a terminal.
- * If true, initiates an interactive shell.
- * using _printlineTyped function. If not,
- * indicates non-interactive mode with a message.
- *
- * Return:
- * Always returns 0.
- */
-int startShell(void)
-{
-	if (isatty(fileno(stdin)))
-	{
-		_printlineTyped();
-	}
-	else
-	{
-		printf("non-interactive mode\n");
-	}
 	return (0);
 }
 
