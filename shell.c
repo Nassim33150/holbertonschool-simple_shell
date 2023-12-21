@@ -103,7 +103,7 @@ void exec_command(char **tokens)
 	else if (pid == 0)
 	{
 		generate_command = get_location(command);
-		if (execve(generate_command, tokens, NULL) == -1)
+		if (execve(generate_command, tokens, environ) == -1)
 		{
 			perror("./hsh");
 			exit(EXIT_FAILURE);
