@@ -4,6 +4,7 @@
 /**
  * exit_shell - command for exiting the shell.
  * @command: arguments passed by utilisateur.
+ * Return: 0.
 */
 
 int exit_shell(char *command)
@@ -78,7 +79,6 @@ int _printlineTyped(void)
 		exec_command(tokens);
 		free(tokens);
 	}
-	
 	return (0);
 }
 
