@@ -81,8 +81,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 |          main.c|                                                           Test file for our simple shell.|
 
 ## **Flowchart for Simple Shell**
-
-[simpleshell.drawio.pdf](https://github.com/Nassim33150/holbertonschool-simple_shell/files/13739366/simpleshell.drawio.pdf)
+![simpleshell.drawio.pdf](https://github.com/Nassim33150/holbertonschool-simple_shell/files/13739366/simpleshell.drawio.pdf)
 
 ## **Authors**
 Abaida Nassim [Github](https://github.com/Nassim33150).
