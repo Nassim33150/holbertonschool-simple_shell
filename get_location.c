@@ -38,5 +38,5 @@ char *get_location(char *command)
 		}
 	}
 	free(path_copy);
-	return (command);
+	return (strdup(command));
 }

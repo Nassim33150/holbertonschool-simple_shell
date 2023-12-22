@@ -46,7 +46,7 @@ int _printlineTyped(void)
 {
 	char *prompt = "$ ";
 	char *lineptr = NULL;
-	char **tokens = NULL;
+	char **tokens;
 	size_t n = 0;
 	ssize_t nchars_read;
 	int status, i = 0;
@@ -61,14 +61,15 @@ int _printlineTyped(void)
 			free(lineptr);
 			exit(EXIT_FAILURE);
 		}
+		if (strcmp(lineptr, "\n") == 0)
+			continue;
 		if (nchars_read > 0 && lineptr[nchars_read - 1] == '\n')
-		{
 			lineptr[nchars_read - 1] = '\0';
-		}
 		tokens = process_command(lineptr);
 		status = exit_shell(tokens[0]);
 		if (status > 0)
 		{
+			free(lineptr);
 			for (i = 0; tokens[i]; i++)
 				free(tokens[i]);
 			free(tokens);
@@ -76,7 +77,10 @@ int _printlineTyped(void)
 			exit(EXIT_SUCCESS);
 		}
 		exec_command(tokens);
+		for (i = 0; tokens[i]; i++)
+			free(tokens[i]);
 		free(tokens);
+		tokens = NULL;
 	}
 	return (0);
 }
@@ -115,8 +119,10 @@ void exec_command(char **tokens)
 		if (execve(generate_command, tokens, environ) == -1)
 		{
 			perror("./hsh");
+			free(generate_command);
 			exit(EXIT_FAILURE);
 		}
+		free(generate_command);
 	}
 	else
 	{

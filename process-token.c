@@ -24,7 +24,7 @@ char **process_command(char *lineptr)
 		token = strtok(NULL, delim);
 	}
 /* Allouer de la mémoire pour le tableau de tokens */
-	argv = malloc(sizeof(char *) * num_tokens);
+	argv = malloc(sizeof(char *) * (num_tokens + 1));
 	if (argv == NULL)
 	{
 		perror("memory allocation error");
@@ -42,6 +42,5 @@ char **process_command(char *lineptr)
 	argv[i] = NULL;
  /* Libérer la mémoire allouée */
 	free(lineptr_copy);
-	free(token); /* A SUPPRIMER */
 	return (argv);
 }
