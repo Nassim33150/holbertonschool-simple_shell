@@ -14,10 +14,18 @@ void exit_shell(char *command)
     }
 }
 
+void printenv(char **environ)
+{
+    int i = 0;
+
+    for (; environ[i]; i++)
+
+        printf("%s\n", environ[i]);
+}
+
 /**
  * _printlineTyped - Basic function for interactive input in a shell.
  *
- * Description:
  * Displays a prompt, reads user input from stdin using getline, and prints the entered line.
  * Exits the shell if getline returns -1 (EOF or an error).
  * Dynamically allocates memory for input and frees it at the end.
@@ -38,7 +46,7 @@ int _printlineTyped()
         printf("%s", prompt);
         nchars_read = getline(&lineptr, &n, stdin);
 
-        /* Si la fonction getline échoue, sortie du shell (ctrl + D = EOF)*/
+        /*If the getline function fails, exit the shell (Ctrl + D = EOF)*/
         if (nchars_read == -1)
         {
             return (-1);
@@ -78,6 +86,13 @@ int startShell()
     return (0);
 }
 
+/**
+ * exec_command - Executes a command with its arguments in a new process.
+ * @tokens: An array of strings representing the command and its arguments.
+ *
+ * Forks a new process, determines the full path of the command using get_location,
+ * and executes the command in the child process.
+ */
 void exec_command(char **tokens)
 {
     pid_t pid;

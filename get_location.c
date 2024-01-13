@@ -4,7 +4,7 @@
  * the directories specified by the PATH environment variable.
  * @command: The command to search for.
  *
- * Return: the full path of the command if found, or NULL if not
+ * Return: the path of the command if found, or NULL if not
  * located in any specified directory.
  * Uses dynamic memory allocation and checks existence with the stat function.
  */
